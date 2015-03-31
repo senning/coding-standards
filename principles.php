@@ -9,15 +9,16 @@
       <li>When writing function, consider taking a single array or object as a parameter instead of a series of variables, as it makes it easier to expand your function and hook in to it. Balance this with the need for clarity and simplicity.</li>
     </ul>
 
+<div class="code-block">
 <pre class="code code-php columns-two section-good">
 function make_doughnuts($opts)
 {  
   $doughnuts = array();
   $mix = combine($opts['ingredients']);
-  $batter = do_beater($mix);
+  $batter = <span class="code-highlight">do_beater($mix);</span>
   for($i = 0; $i &lt; $opts['count']; $i++)
     {
-    $doughnut = deep_fry($batter);
+    $doughnut = <span class="code-highlight">deep_fry($batter);</span>
     $doughnuts[] = $doughnut;
     }  
   return $doughnuts;
@@ -30,12 +31,13 @@ function make_doughnuts($opts)
   for($i = 0; $i &lt; $opts['count']; $i++)
     {
     $doughnuts[] = deep_fry(
-      beat_and_mix($opts);
+      <span class="code-problem">beat_and_mix($opts);</span>
       );
     }
   return $doughnuts;
 }  
 </pre>
+</div>
 
   </section>
   <section class="chapter-section" data-name="reusable">
@@ -57,6 +59,7 @@ function make_doughnuts($opts)
       <li>A function should be less than one screen long (~40 lines). If it's longer than that, consider breaking it up.</li>
       <li>Generally, a class or template should be less than 1500 lines long. Unless everything in the object is really tightly related, consider breaking it up in to multiple classes/template parts.</li>
     </ul>
+<div class="code-block">
 <pre class="code code-php columns-two section-good">
 class Music
 {
@@ -101,6 +104,7 @@ class Music
   {<span class="highlight">&hellip;</span>
   function make_opera()
   {<span class="highlight">&hellip;</span>
-</pre>    
+</pre>
+</div>
   </section>
 </article>

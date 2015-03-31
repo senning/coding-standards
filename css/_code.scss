@@ -1,0 +1,71 @@
+.code-block{
+  @include font-monoN4;
+  background: $dark-grey;
+  color: $cream;
+  border-radius: .25em;
+  display:flex;
+  overflow:hidden;
+}
+
+.code strong{
+  @include font-monoN7;
+}
+
+code{
+  @include font-monoN4;
+}
+
+
+@media screen and ( min-width: $width-md-min ){
+
+  .code.columns-two{
+    width: 50%;
+  }
+
+  .code{
+    position: relative;
+    padding: 1.6em;
+    margin: 0;
+    border-right: 1px solid $light-grey;
+  }
+  .code:last-of-type{
+    border-right: 0px;
+  }
+
+  .code-block{
+    margin-left: -8em;
+    margin-right: -8em;
+  }
+
+  .code:after{
+    height: 1.6em;
+    color: $dark-grey;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+  }
+  .section-good:after{
+    content:"Good";
+    background-color: $colour-good;
+  }
+  .section-ok:after{
+    content:"OK";
+    background-color: $colour-ok;
+  }
+  .section-bad:after{
+    content:"Bad";
+    background-color: $colour-bad;
+  }
+
+  /**
+   * Highlights for the code blocks
+   */
+  .code-problem{
+    color: $colour-bad;
+  }
+  .code-highlight{
+    color: $colour-good;
+  }
+}

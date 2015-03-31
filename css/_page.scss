@@ -1,0 +1,20 @@
+.page-title{
+  color: $brand-green;
+}
+
+strong{
+  @include font-sansN7;
+}
+
+em{
+  @include font-sansI4;
+}
+
+body{
+  @include font-sansN4;
+  @include lineHeight-baseSans;
+  @include letterSpacing-baseSans;
+  color: $text-colour;
+  background-colour: $background-colour;
+  font-size: 18px;
+}

@@ -1,0 +1,8 @@
+.chapter-title{
+  color: $brand-blue;
+}
+
+.chapter-section--title{
+  color: $brand-blue;
+  @include fontSize-large;
+}

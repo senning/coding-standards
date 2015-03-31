@@ -1,0 +1,38 @@
+/* colors */
+$dark-grey: #33333A;
+$light-grey: #BBBBBA;
+$cream: #FFFFF3;
+$green: #43a047;
+$yellow: #ffeb3b;
+$red: #d50000;
+$brand-green: rgb( 60, 178, 140 );
+$brand-blue: rgb( 81, 173, 194 );
+
+
+// $highlight-colour: $brand-blue;
+$text-colour: $dark-grey;
+$background-colour: $cream;
+
+$colour-good: $green;
+$colour-ok: $yellow;
+$colour-bad: $red;
+
+
+//Phone-size devices
+$width-xs-min: 0px;
+$width-xs-max: 399px;
+$width-sm-min: 400px;
+$width-sm-max: 767px;
+
+//Tablet-size devices
+$width-md-min: 768px;
+$width-md-max: 991px;
+
+//Laptop-size devices
+$width-lg-min: 992px;
+$width-lg-max: 1199px;
+
+//Desktop-size devices
+$width-xl-min: 1200px;
+$width-xl-max: 1599px;
+$width-xxl-min: 1600px;

@@ -1,0 +1,122 @@
+$primary-font-family: 'Roboto Slab', serif;
+$monospace: 'Inconsolata', monospace;
+
+//font-sizes
+@mixin fontSize-smallest{
+  font-size: .5em;
+}
+@mixin fontSize-smaller{
+  font-size: .75em;
+}
+@mixin fontSize-small{
+  font-size: .8em;
+}
+@mixin fontSize-base{
+  font-size: 1em;
+}
+@mixin fontSize-large{
+  font-size: 1.2em;
+}
+@mixin fontSize-larger{
+  font-size: 1.5em;
+}
+@mixin fontSize-largest{
+  font-size: 2em;
+}
+@mixin fontSize-jumbo{
+  font-size: 3em;
+}
+
+//line-heights
+@mixin lineHeight-tightest{
+  line-height: 1;
+}
+@mixin lineHeight-tight{
+  line-height: 1.2;
+}
+@mixin lineHeight-baseSans{
+  line-height: 1.6;
+}
+@mixin lineHeight-base{
+  line-height: 2;
+}
+@mixin lineHeight-loose{
+  line-height: 2.2;
+}
+@mixin lineHeight-looser{
+  line-height: 2.4;
+}
+
+//letter-spacing
+@mixin letterSpacing-tightest{
+  letter-spacing: -0.06em;
+}
+@mixin letterSpacing-tighter{
+ letter-spacing: -0.04em;
+}
+@mixin letterSpacing-tight{
+ letter-spacing: -0.02em;
+}
+@mixin letterSpacing-baseSans{
+ letter-spacing: normal;
+}
+@mixin letterSpacing-base{
+  letter-spacing: normal;
+}
+@mixin letterSpacing-loose{
+  letter-spacing: 0.02em;
+}
+@mixin letterSpacing-looser{
+  letter-spacing: 0.04em;
+}
+@mixin letterSpacing-loosest{
+  letter-spacing: 0.06em;
+}
+
+//Font declarations!
+@mixin font-sansN3{
+  font-family: $primary-font-family;
+  font-weight: 300;
+  font-style: normal;
+}
+@mixin font-sansN4{
+  font-family: $primary-font-family;
+  font-weight: 400;
+  font-style: normal;
+}
+@mixin font-sansI4{
+  font-family: $primary-font-family;
+  font-weight: 400;
+  font-style: italic;
+}
+@mixin font-sansN6{
+  font-family: $primary-font-family;
+  font-weight: 700;
+  font-style: normal;
+}
+@mixin font-sansN7{
+  font-family: $primary-font-family;
+  font-weight: 700;
+  font-style: normal;
+}
+@mixin font-sansI7{
+  font-family: $primary-font-family;
+  font-weight: 700;
+  font-style: italic;
+}
+@mixin font-sansN8{
+  font-family: $primary-font-family;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@mixin font-monoN4{
+  font-family: $monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+@mixin font-monoN7{
+  font-family: $monospace;
+  font-weight: 700;
+  font-style: normal;
+}
