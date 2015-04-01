@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grassriots Coding Standards</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+</head>
+<body>
+<div class="main-content">
+  <h1 class="page-title">Grassriots Coding Standards</h1>
+  <p class="note">Version 1.5, 31 March 2015</p>
+<article class="chapter" data-name="principles">
+  <h1 class="chapter-title">Principles</h1>
+  <section class="chapter-section" data-name="principle-clarity">
+    <h2 class="chapter-section--title">Code should mean what it says</h2>
+    <p>Your code is trying to do something and it should read that way</p>
+    <ul>
+      <li>Be as concise as you can be, as verbose as you need to be.</li>
+      <li>Your function names should be verbs. They act on their parameters.</li>
+      <li>When writing function, consider taking a single array or object as a parameter instead of a series of variables, as it makes it easier to expand your function and hook in to it. Balance this with the need for clarity and simplicity.</li>
+    </ul>
+
+<div class="code-block">
+<pre class="code code-php columns-two section-good">
+function make_doughnuts($opts)
+{  
+  $doughnuts = array();
+  $mix = combine($opts['ingredients']);
+  $batter = <span class="code-highlight">do_beater($mix);</span>
+  for($i = 0; $i &lt; $opts['count']; $i++)
+    {
+    $doughnut = <span class="code-highlight">deep_fry($batter);</span>
+    $doughnuts[] = $doughnut;
+    }  
+  return $doughnuts;
+}
+</pre>
+<pre class="code code-php columns-two section-ok">
+function make_doughnuts($opts)
+{
+  $doughnuts = array();
+  for($i = 0; $i &lt; $opts['count']; $i++)
+    {
+    $doughnuts[] = deep_fry(
+      <span class="code-problem">beat_and_mix($opts);</span>
+      );
+    }
+  return $doughnuts;
+}  
+</pre>
+</div>
+
+  </section>
+  <section class="chapter-section" data-name="reusable">
+    <h2 class="chapter-section--title">Code should be reused, and reusable</h2>
+    <p>Your code should do one thing, but not in just one way or for just one case. </p>
+    <ul>
+      <li>As much as practical, write as though your code will some day become its own project -the foundation for a thousand projects, created by a hundred developers.</li>
+      <li>If something exists which does what you need, use it instead of writing something new. Use the time you save to hang out with the team instead! If it can do what you need with small changes, consider making those changes and sending them back to the project maintainer.</li>
+      <li>Comment early and often. Your documentation should state what your code (class, function, SCSS partial&hellip;) does, what it takes in, what it gives back. Use the <a href="http://www.phpdoc.org/docs/latest/guides/docblocks.html" target="_blank">DocBlock</a> format, and the <a href="https://packagecontrol.io/packages/DocBlockr">DocBlockr</a> Sublime Text plugin.</li>
+      <li>When writing a display function, consider breaking it apart in to a function to generate the text and a function to show the results. This allows reusing the logic in other contexts. Likewise, when writing an AJAX handler, consider writing a wrapper which gets the inputs and formats the output and a second function to handle the logic.</li>
+    </ul>
+  </section>
+  <section class="chapter-section" data-name="blackbox">
+    <h2 class="chapter-section--title">Code should be a part of the whole</h2>
+    <p>Everything is awesome when you're part of a team. Fit in, write like the greater whole. Good or bad, it's important to be consistent.</p>
+    <ul>
+      <li>If you're working on an existing project, try to follow its logic and write slightly better than it was written. For our own code, consistency eases maintenance; on others' code, it makes your changes more likely to be accepted upstream.</li>
+      <li>If you're working on a new project, follow the agreed style and logic of the team. At Grassriots, you should always feel free to make suggestions for changes but as the code piles up expect it to be less likely to be accepted for the current project.</li>
+      <li>A function should be less than one screen long (~40 lines). If it's longer than that, consider breaking it up.</li>
+      <li>Generally, a class or template should be less than 1500 lines long. Unless everything in the object is really tightly related, consider breaking it up in to multiple classes/template parts.</li>
+    </ul>
+<div class="code-block">
+<pre class="code code-php columns-two section-good">
+class Music
+{
+  function make_note()
+  {<span class="highlight">&hellip;</span>
+  function make_song()
+  {<span class="highlight">&hellip;</span>
+  <span class="highlight">&hellip;</span>
+}
+class RockNRoll extends Music{
+  function make_riff()
+  {<span class="highlight">&hellip;</span>
+  function make_song()
+  {<span class="highlight">&hellip;</span>
+  <span class="highlight">&hellip;</span>
+}
+class HipHop extends Music{
+  function make_beat()
+  {<span class="highlight">&hellip;</span>
+  function make_song()
+  {<span class="highlight">&hellip;</span>
+  <span class="highlight">&hellip;</span>
+}
+class Opera extends Music{
+  function make_aria()
+  {<span class="highlight">&hellip;</span>
+  function make_song()
+  {<span class="highlight">&hellip;</span>
+  <span class="highlight">&hellip;</span>
+}
+</pre>
+<pre class="code code-php columns-two section-bad">
+class Music
+{
+  function make_note()
+  {<span class="highlight">&hellip;</span>
+  function make_song()
+  {<span class="highlight">&hellip;</span>
+  function make_rocknroll()
+  {<span class="highlight">&hellip;</span>
+  function make_hiphop()
+  {<span class="highlight">&hellip;</span>
+  function make_opera()
+  {<span class="highlight">&hellip;</span>
+</pre>
+</div>
+  </section>
+</article>
+<article class="chapter" data-name="components">
+  <h1 class="chapter-title">Components</h1>
+  <p class="note">This chapter draws heavily on @fat's <a href="https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06">"Medium's CSS is actually pretty f***ing good."</a> and the WordPress standards.</p>
+  <p>Syntax: <code>componentName[-descendantName][--subDescendantName]</code></p>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title">Keep it together</h2>
+    <p>Everything - JS, PHP classes/plugins, CSS and SASS partials - should be scoped to a component. By being conscious of the shape and borders of our components (and the interactions between them), we can minimize bad interactions between them.</p>
+    <p>Generally, that will be a one-to-one(-to-one-to-one) relationship, with one PHP class generating a component, styled by one SASS partial, controlled by one JS closure. For more complex components, it may be better to break that off in to multiple PHP classes (ex., a controller and specific view handlers) or multiple JS closures (ex., one to handle the common elements, others to handle each specific case ).</p>
+  </section>
+  
+</article>
+<article class="chapter" data-name="all-code">
+  <h1 class="chapter-title">Code</h1>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title">White space</h2>
+    <ul>
+      <li>Indentation should be two spaces per level.</li>
+      <li>One space after a colon.</li>
+      <li>When passing more than two parameters to a function, put each on a new line. Commas go at the end of a line. One line per CSS property.</li>
+      <li>A closing brace should be at the same level as its opening brace. A closing parenthesis should be one level above the function of its opening pair.</li>
+      <li>No spaces after an opening parenthesis or before a closing one.</li>
+      <li>In a parameter list on one line, one space after each comma</li>
+    </ul>
+<div class="code-block">
+<pre class="code code-php columns-two section-good">
+function high_five( $subject )
+{  
+  raise_arm();
+  while(get_forearm_angle() &lt; 90)
+  {
+    increase_forearm_angle(5, 'degrees');
+  }
+  smack_hand(
+    $subject->hand
+    'medium-force',
+    'no-regrets'
+    );
+}  
+</pre>
+<pre class="code code-php columns-two section-bad">
+function high_five( $subject )
+{  
+  raise_arm();
+    while(get_forearm_angle() &lt; 90)
+    {
+      increase_forearm_angle(5, 'degrees');
+      }
+  smack_hand( $subject->hand, 'medium-force', 'no-regrets' );
+}  
+</pre>
+</div>
+
+  </section>
+  
+</article>
+<article class="chapter" data-name="css">
+  <hgroup>
+    <h1 class="chapter-title">CSS</h1>
+    <h2 class="chapter-subtitle">+ Sass + Compass</h2>
+  </hgroup>
+  <p class="note">This chapter draws heavily on @fat's <a href="https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06">"Medium's CSS is actually pretty f***ing good."</a> and the WordPress standards.</p>
+
+  <section class="chapter-section" data-name="css-structure">
+    <h2 class="chapter-section--title">Structure</h2>
+    <ul>
+      <li>Style by component, not by page. A component should be usable in any context, and be self contained.</li>
+      <li>Each component should be styled in its own partial.</li>
+    </ul>
+  </section>
+  <section class="chapter-section" data-name="css-type">
+    <h2 class="chapter-section--title">Typography</h2>
+    <ul>
+      <li>Type styling should be defined in the project's _type.scss partial. As much as possible, create a mixin to define a consistent type style for each level of the information hierarchy. Always @include the font @mixin and never use a font-style directly.</li>
+      <li><code>strong</code> and <code>em</code> should be redefined using those font style definitions.</li>
+      <li>Use ems and rems consistently, and use intelligent fractions for line heights, so that other components can be styled relative to the text.</li>
+    </ul>
+  </section>
+  <section class="chapter-section" data-name="css-syntax">
+    <h2 class="chapter-section--title">Syntax</h2>
+    <ul>
+      <li>Two spaces per level, one space after the colon.</li>
+      <li>One selector, and one property, per line.</li>
+      <li>Select components, not elements, as much as possible.</li>
+      <li>Use shorthand properties only when you want to overwrite everything. Otherwise, use the most specific property (<code>background-color</code> not <code>background</code>; <code>margin-left</code> not <code>margin</code>).</li>
+      <li>Avoid magic values as much as possible. Sizes, positions, colours should be defined in _base (or calculated from values in _base). You can also define special base values for each component, if necessary. You can use background image URLs directly, but use sprites or fonts where possible.</li>
+    </ul>
+<div class="code-block">
+<pre class="code code-scss columns-two section-good">
+.code-css{
+  background-color: $dark-grey;
+  color: $white;
+}
+</pre>
+<pre class="code code-scss columns-two section-bad">
+.code-css{ background: $dark-grey; color:    $white;}
+</pre>
+</div>
+  </section>
+  <section class="chapter-section" data-name="css-order">
+    <h2 class="chapter-section--title">Property ordering</h2>
+    <ol>
+      <li>Display</li>
+      <li>Positioning</li>
+      <li>Box model</li>
+      <li>Colours and typography</li>
+      <li>Other</li>
+    </ul>
+  </section>
+  <section class="chapter-section" data-name="css-otherRules">
+    <h2 class="chapter-section--title">Other rules</h2>
+    <ul>
+      <li>Nothing is <code>!important</code>. Use a more specific selector when necessary to override.</li>
+      <li>Avoid cascading selectors as much as possible. <code class="code-highlight">.pie-crust</code> rather than <code class="code-problem">.pie > .crust</code>.</li>
+      <li>@include a z-index level from the _zindex partial instead of defining it directly</li>
+    </ul>
+  </section>
+</article>
+<article class="chapter" data-name="javascript">
+  <h1 class="chapter-title">Javascript</h1>
+  <p>Our javascript should be fast, modular and reactive.</p>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title">Syntax</h2>
+    <p>Syntax: <code>js-&lt;targetName&gt;</code></p>
+    <blockquote>JavaScript-specific classes reduce the risk that changing the structure or theme of components will inadvertently affect any required JavaScript behaviour and complex functionality.</blockquote>
+    <cite><a href="https://gist.github.com/fat/a47b882eb5f84293c4ed#javascript">@fat</a></cite>
+    <p>Any time you need to target an element, use a class prefixed with <code>js-</code>. Not a path, not a [name] attribute, not an ID. Things get moved over the course of development, fields get renamed to match different CRM setups, we'll want to listen to or modify multiple elements simultaneously.</p>
+  </section>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title">Principles</h2>
+    <ul>
+      <li>Listen for, and emit, events. This makes it much easier to build on code later, either for new features or for specific customizations.</li>
+      <li>Only select the elements you need. Any elements you'll need more than once should be saved to a variable.</li>
+      <li>Most variables should be scoped to their component or to the specific method. Avoid scoping to the whole jQuery.ready handler, and never use the global scope (except for passing in information from the page, ex. <code>wp_localize_script()</code>).</li>
+    </ul>
+  </section>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title">Modularize</h2>
+    <p>Components should be consistent with SCSS components and each be in their own file, to be compiled. Where components act on an element, they should be written as jQuery extensions. Where components act as an application, or part of an application, they should be standalone javascript objects.</p>
+<div class="code-block">
+<pre class="code code-js">
+  //jQuery plugin
+  ( function( $ ){
+    $.fn.actor = function( options ){
+      this.each( function(){
+        function act(){
+          …
+        }
+      } );
+    } )
+  } );
+</pre>
+<pre class="code code-js">
+//Standalone, from <a href="https://hacks.mozilla.org/2014/08/black-box-driven-development-in-javascript/">MozHacks</a>
+var App = function() {
+    var api = {};
+    api.init = function() {
+        if(window.localStorage) {
+            var products = window.localStorage.getItem('products') || [], content = '';
+            for(var i=0; i&lt;products.length; i++) {
+                content += products[i].name + '&lt;br /&gt;';
+            }
+            $('.content').html(content);
+        } else {
+            $('.error').css('display', 'block');
+            $('.error').html('Error! Local storage is not supported.');
+        }
+        return api;
+    }
+    return api;
+}
+ 
+var application = App();
+$(document).ready(application.init);
+</pre>
+    </div>    
+  </section>
+  
+</article>
+<article class="chapter" data-name="php">
+  <h1 class="chapter-title">PHP</h1>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title"></h2>
+  </section>
+  
+</article>
+<article class="chapter" data-name="html">
+  <h1 class="chapter-title">HTML</h1>
+  <section class="chapter-section">
+    <h2 class="chapter-section--title"></h2>
+  </section>
+  
+</article>
+</div>
+
+<link href="http://fonts.googleapis.com/css?family=Inconsolata:400,700|Roboto+Slab:300,400,700" rel="stylesheet" type="text/css">
+
+</body>
+</html>
